@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "skills": {
+    "do-commits": {
+      "source": "cbnsndwch/skills",
+      "sourceType": "github",
+      "skillPath": "do-commits/SKILL.md",
+      "computedHash": "0dee47171970908145426fa64f0c66019a8e0c5e224149f5b40df06bddb86229"
+    },
+    "grill-me": {
+      "source": "mattpocock/skills",
+      "sourceType": "github",
+      "skillPath": "skills/productivity/grill-me/SKILL.md",
+      "computedHash": "f361db4e15e6bfd562a9282b1dccda513910a50061f9e838ce017be9c69dde3f"
+    },
+    "grilling": {
+      "source": "mattpocock/skills",
+      "sourceType": "github",
+      "skillPath": "skills/productivity/grilling/SKILL.md",
+      "computedHash": "368d3dd7251247c69f3656d93dc83c8f1577792eacac2111f1e7981db2ece49b"
+    },
+    "ncu": {
+      "source": "cbnsndwch/skills",
+      "sourceType": "github",
+      "skillPath": "ncu/SKILL.md",
+      "computedHash": "ad08593f337cdec0d25329b347005272acee956e44fbaec7c7a66db71270a36c"
+    }
+  }
+}

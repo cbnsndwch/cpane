@@ -1,0 +1,40 @@
+# Dependencies
+node_modules
+.pnp
+.pnp.js
+
+# Local env files
+.env
+.env.*
+!.env.example
+
+# Testing
+coverage
+
+# Turbo
+.turbo
+
+# Build outputs
+build
+output
+dist
+*.tsbuildinfo
+
+# Debug
+npm-debug.log*
+
+# OS-specific
+.DS_Store
+Thumbs.db
+*.pem
+
+# Local scratch (drafts, personal config excerpts — not for the repo)
+.local
+
+# Claude Code local files
+.claude/scheduled_tasks.lock
+.claude/settings.local.json
+.claude/worktrees/
+
+# Visual brainstorming companion (superpowers)
+.superpowers/
