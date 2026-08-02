@@ -18,6 +18,7 @@ coverage
 build
 output
 dist
+release
 *.tsbuildinfo
 
 # Debug

@@ -1,0 +1,31 @@
+{
+    "$schema": "./node_modules/oxfmt/configuration_schema.json",
+    "singleQuote": true,
+    "bracketSpacing": true,
+    "trailingComma": "all",
+    "printWidth": 80,
+    "tabWidth": 4,
+    "useTabs": false,
+    "endOfLine": "lf",
+    "semi": true,
+    "arrowParens": "avoid",
+    "overrides": [
+        {
+            "files": ["*.puml", "*.yml", "*.yaml"],
+            "options": {
+                "tabWidth": 2
+            }
+        }
+    ],
+    "ignorePatterns": [
+        "**/*.md",
+        "docs/**",
+        "**/dist/**",
+        "**/node_modules/**",
+        "pnpm-lock.yaml",
+        ".agents/**",
+        ".claude/**",
+        ".vscode/**",
+        "skills-lock.json"
+    ]
+}

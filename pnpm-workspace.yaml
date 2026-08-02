@@ -1,0 +1,27 @@
+packages:
+  - apps/*
+
+onlyBuiltDependencies:
+  - '@opentui/core'
+  - esbuild
+
+patchedDependencies:
+  '@opentui/core@0.4.5': patches/@opentui__core@0.4.5.patch
+
+# `bun build --compile` statically resolves every @opentui/core-<platform>
+# optional dependency (its platform loader uses dynamic import() that Bun's
+# bundler can't dead-code-eliminate), so all of them must be on disk even
+# though only one actually loads at runtime — and CI cross-compiles all three
+# release targets from one linux-x64 runner (PRD §8.2), so the host's own
+# platform isn't enough either.
+supportedArchitectures:
+  os:
+    - linux
+    - win32
+    - current
+  cpu:
+    - x64
+    - arm64
+  libc:
+    - glibc
+    - musl

@@ -1,0 +1,31 @@
+{
+    "name": "@cpane/cli",
+    "version": "0.0.0",
+    "private": true,
+    "description": "cpane CLI — declarative tmux session profiles over SSH.",
+    "bin": {
+        "cpane": "./src/index.ts"
+    },
+    "type": "module",
+    "scripts": {
+        "dev": "bun run src/index.ts",
+        "build": "bun run scripts/build.ts",
+        "typecheck": "tsc -b tsconfig.json",
+        "test": "vitest run"
+    },
+    "dependencies": {
+        "@opentui/core": "0.4.5",
+        "@opentui/react": "0.4.5",
+        "json5": "^2.2.3",
+        "jsonc-parser": "^3.3.1",
+        "react": "^19.2.8",
+        "smol-toml": "^1.7.1",
+        "yaml": "^2.9.0",
+        "zod": "^4.4.3"
+    },
+    "devDependencies": {
+        "@types/react": "^19.2.6",
+        "bun-types": "^1.3.14",
+        "typescript": "^6.0.3"
+    }
+}

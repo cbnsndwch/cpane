@@ -1,0 +1,52 @@
+{
+    "name": "cpane",
+    "version": "0.0.0",
+    "private": true,
+    "description": "Declarative tmux session profiles over SSH — replaces per-host PowerShell functions with a single fast command.",
+    "keywords": [
+        "cli",
+        "profiles",
+        "ssh",
+        "tmux"
+    ],
+    "homepage": "https://github.com/cbnsndwch/cpane#readme",
+    "bugs": {
+        "url": "https://github.com/cbnsndwch/cpane/issues"
+    },
+    "license": "MIT",
+    "author": "cbnsndwch",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/cbnsndwch/cpane.git"
+    },
+    "directories": {
+        "doc": "docs"
+    },
+    "type": "module",
+    "scripts": {
+        "lint": "oxlint",
+        "format": "oxfmt",
+        "format:check": "oxfmt --check",
+        "typecheck": "tsc -b tsconfig.json",
+        "build": "turbo run build",
+        "dev": "pnpm --filter @cpane/cli dev",
+        "test": "vitest run",
+        "test:watch": "vitest",
+        "changeset": "changeset",
+        "gate": "pnpm lint && pnpm format:check && pnpm typecheck && pnpm build && pnpm test"
+    },
+    "devDependencies": {
+        "@changesets/cli": "^2.31.1",
+        "@types/node": "^26.0.1",
+        "oxfmt": "0.58.0",
+        "oxlint": "1.73.0",
+        "turbo": "^2.10.8",
+        "typescript": "^6.0.3",
+        "vitest": "^4.1.9"
+    },
+    "engines": {
+        "bun": ">=1.2.0",
+        "node": ">=20"
+    },
+    "packageManager": "pnpm@11.15.1"
+}
