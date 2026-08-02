@@ -1,0 +1,48 @@
+name: Changesets
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: changesets-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Install (frozen lockfile)
+        run: pnpm install --frozen-lockfile
+
+      # Version-only: bumps apps/cli/package.json + writes CHANGELOG.md into
+      # a "Version Packages" PR. No `publish` step — cpane isn't distributed
+      # via npm, and merging this PR must never auto-release (PRD §8.3); the
+      # actual vX.Y.Z/vX.Y.Z-rc.N tag push is a separate, deliberate step.
+      - name: Create/update the Version Packages PR
+        uses: changesets/action@v1
+        with:
+          version: pnpm changeset version
+          commit: 'chore: version packages'
+          title: 'chore: version packages'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
