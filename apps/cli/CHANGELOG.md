@@ -1,5 +1,11 @@
 # @cpane/cli
 
+## 0.2.0
+
+### Minor Changes
+
+- 8290107: Add short aliases for every subcommand: `l`/`ls` for `list`, `a` for `add`, `e` for `edit`, `s` for `sync`, `i` for `shell-init`, `u` for `upgrade`, `r` for `replicate-profiles`.
+
 ## 0.1.0
 
 ### Minor Changes
