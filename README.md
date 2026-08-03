@@ -56,18 +56,18 @@ schema either way).
 
 ## Commands
 
-| Command | What it does |
-| --- | --- |
-| `cpane <profile>` | Connect — no verb needed, same reasoning as `ssh <host>` |
-| `cpane` | Fuzzy-search picker over all profiles |
-| `cpane list` | Static, instant list of profile names |
-| `cpane add <name>` | Scaffold a profile, then open it in `$EDITOR`/`$VISUAL` |
-| `cpane add --wizard` | Guided flow to build a profile — no YAML required |
-| `cpane edit <name>` | Open an existing profile in `$EDITOR`/`$VISUAL` |
-| `cpane sync <profile>` | Capture a live session's structure back into its profile file |
-| `cpane shell-init <bash\|zsh\|pwsh>` | Emit one shell function per profile, for eval'ing from your shell rc |
-| `cpane upgrade` | Upgrade to the latest release on this binary's channel |
-| `cpane replicate-profiles` | Copy `cpane`'s profiles into `cpanext` for rc testing |
+| Command | Alias | What it does |
+| --- | --- | --- |
+| `cpane <profile>` | | Connect — no verb needed, same reasoning as `ssh <host>` |
+| `cpane` | | Fuzzy-search picker over all profiles |
+| `cpane list` | `l`, `ls` | Static, instant list of profile names |
+| `cpane add <name>` | `a` | Scaffold a profile, then open it in `$EDITOR`/`$VISUAL` |
+| `cpane add --wizard` | `a --wizard` | Guided flow to build a profile — no YAML required |
+| `cpane edit <name>` | `e` | Open an existing profile in `$EDITOR`/`$VISUAL` |
+| `cpane sync <profile>` | `s` | Capture a live session's structure back into its profile file |
+| `cpane shell-init <bash\|zsh\|pwsh>` | `i` | Emit one shell function per profile, for eval'ing from your shell rc |
+| `cpane upgrade` | `u` | Upgrade to the latest release on this binary's channel |
+| `cpane replicate-profiles` | `r` | Copy `cpane`'s profiles into `cpanext` for rc testing |
 
 ### Per-profile shortcuts (`shell-init`)
 

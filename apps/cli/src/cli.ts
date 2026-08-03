@@ -17,18 +17,18 @@ function printHelp(binaryName: string): void {
     console.log(`${binaryName} — declarative tmux session profiles over SSH
 
 Usage:
-  ${binaryName} <profile>            Connect to (or create) a profile's tmux session
-  ${binaryName}                      Open a fuzzy-search picker over all profiles
-  ${binaryName} list                 List profile names
-  ${binaryName} add <name>           Scaffold a new profile, then open it in $EDITOR
-  ${binaryName} add --wizard         Guided flow to build a new profile — no YAML required
-  ${binaryName} edit <name>          Open an existing profile in $EDITOR
-  ${binaryName} sync <profile>       Capture a live session's structure back into its profile
-  ${binaryName} shell-init <shell>   One shell function per profile — eval from your shell rc (${SHELL_KINDS.join('|')})
-  ${binaryName} upgrade              Upgrade to the latest release on this channel
-  ${binaryName} replicate-profiles   Copy cpane profiles into cpanext for rc testing
-  ${binaryName} --version            Print the version
-  ${binaryName} --help               Show this help
+  ${binaryName} <profile>               Connect to (or create) a profile's tmux session
+  ${binaryName}                         Open a fuzzy-search picker over all profiles
+  ${binaryName} l, ls, list             List profile names
+  ${binaryName} a, add <name>           Scaffold a new profile, then open it in $EDITOR
+  ${binaryName} a, add --wizard         Guided flow to build a new profile — no YAML required
+  ${binaryName} e, edit <name>          Open an existing profile in $EDITOR
+  ${binaryName} s, sync <profile>       Capture a live session's structure back into its profile
+  ${binaryName} i, shell-init <shell>   One shell function per profile — eval from your shell rc (${SHELL_KINDS.join('|')})
+  ${binaryName} u, upgrade              Upgrade to the latest release on this channel
+  ${binaryName} r, replicate-profiles   Copy cpane profiles into cpanext for rc testing
+  ${binaryName} -v, --version           Print the version
+  ${binaryName} -h, --help              Show this help
 `);
 }
 
@@ -47,11 +47,16 @@ export async function main(argv: string[]): Promise<number> {
         return 0;
     }
 
-    // Skip the notice right before `upgrade` (about to check anyway) and
-    // `shell-init` (its stdout gets eval'd directly by the caller's shell —
-    // any stray line breaks that). Printed to stderr regardless, since a
-    // notice is never a command's primary output.
-    if (command !== 'upgrade' && command !== 'shell-init') {
+    // Skip the notice right before `upgrade`/`u` (about to check anyway) and
+    // `shell-init`/`i` (its stdout gets eval'd directly by the caller's
+    // shell — any stray line breaks that). Printed to stderr regardless,
+    // since a notice is never a command's primary output.
+    if (
+        command !== 'upgrade' &&
+        command !== 'u' &&
+        command !== 'shell-init' &&
+        command !== 'i'
+    ) {
         const notice = await checkForUpdate(context, VERSION);
         if (notice) console.error(notice.message);
     }
@@ -59,20 +64,28 @@ export async function main(argv: string[]): Promise<number> {
     if (!command) return runPicker(context);
 
     switch (command) {
+        case 'l':
+        case 'ls':
         case 'list':
             return runList(context);
+        case 'a':
         case 'add':
             return rest.includes('--wizard')
                 ? runWizard(context)
                 : runAdd(context, rest[0]);
+        case 'e':
         case 'edit':
             return runEdit(context, rest[0]);
+        case 's':
         case 'sync':
             return runSync(context, rest[0]);
+        case 'i':
         case 'shell-init':
             return runShellInit(context, rest[0]);
+        case 'u':
         case 'upgrade':
             return runUpgrade(context, VERSION);
+        case 'r':
         case 'replicate-profiles':
             return runReplicateProfiles();
         default:
