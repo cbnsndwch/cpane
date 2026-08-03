@@ -4,6 +4,7 @@ import { runEdit } from './commands/edit.ts';
 import { runList } from './commands/list.ts';
 import { runPicker } from './commands/picker.tsx';
 import { runReplicateProfiles } from './commands/replicate.ts';
+import { runSchema } from './commands/schema.ts';
 import { runShellInit } from './commands/shell-init.ts';
 import { runSync } from './commands/sync.ts';
 import { runUpgrade } from './commands/upgrade.ts';
@@ -25,6 +26,7 @@ Usage:
   ${binaryName} e, edit <name>          Open an existing profile in $EDITOR
   ${binaryName} s, sync <profile>       Capture a live session's structure back into its profile
   ${binaryName} i, shell-init <shell>   One shell function per profile — eval from your shell rc (${SHELL_KINDS.join('|')})
+  ${binaryName} sc, schema              Write the profile JSON Schema for editor autocomplete/validation
   ${binaryName} u, upgrade              Upgrade to the latest release on this channel
   ${binaryName} r, replicate-profiles   Copy cpane profiles into cpanext for rc testing
   ${binaryName} -v, --version           Print the version
@@ -82,6 +84,9 @@ export async function main(argv: string[]): Promise<number> {
         case 'i':
         case 'shell-init':
             return runShellInit(context, rest[0]);
+        case 'sc':
+        case 'schema':
+            return runSchema(context);
         case 'u':
         case 'upgrade':
             return runUpgrade(context, VERSION);

@@ -1,0 +1,65 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://raw.githubusercontent.com/cbnsndwch/cpane/main/apps/cli/schema/profile.schema.json",
+    "title": "cPane profile",
+    "description": "A declarative tmux session profile for cPane (https://github.com/cbnsndwch/cpane). Structural validation only — command/panes mutual exclusivity and unique window names are enforced by cpane itself, not representable in JSON Schema.",
+    "type": "object",
+    "properties": {
+        "host": {
+            "type": "string",
+            "minLength": 1
+        },
+        "windows": {
+            "minItems": 1,
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "minLength": 1
+                    },
+                    "cwd": {
+                        "type": "string",
+                        "minLength": 1
+                    },
+                    "command": {
+                        "type": "string",
+                        "minLength": 1
+                    },
+                    "panes": {
+                        "minItems": 1,
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "cwd": {
+                                    "type": "string",
+                                    "minLength": 1
+                                },
+                                "command": {
+                                    "type": "string",
+                                    "minLength": 1
+                                },
+                                "split": {
+                                    "type": "string",
+                                    "enum": ["horizontal", "vertical"]
+                                },
+                                "size": {
+                                    "type": "string",
+                                    "minLength": 1
+                                }
+                            },
+                            "required": ["split"],
+                            "additionalProperties": false
+                        }
+                    }
+                },
+                "required": ["name"],
+                "additionalProperties": false
+            }
+        }
+    },
+    "required": ["host", "windows"],
+    "additionalProperties": false
+}

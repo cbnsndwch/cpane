@@ -10,6 +10,7 @@
     "scripts": {
         "dev": "bun run src/index.ts",
         "build": "bun run scripts/build.ts",
+        "generate:schema": "bun run scripts/generate-schema.ts",
         "typecheck": "tsc -b tsconfig.json",
         "test": "vitest run"
     },

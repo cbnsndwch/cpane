@@ -66,6 +66,7 @@ schema either way).
 | `cpane edit <name>` | `e` | Open an existing profile in `$EDITOR`/`$VISUAL` |
 | `cpane sync <profile>` | `s` | Capture a live session's structure back into its profile file |
 | `cpane shell-init <bash\|zsh\|pwsh>` | `i` | Emit one shell function per profile, for eval'ing from your shell rc |
+| `cpane schema` | `sc` | Write the profile JSON Schema, for editor autocomplete/validation |
 | `cpane upgrade` | `u` | Upgrade to the latest release on this binary's channel |
 | `cpane replicate-profiles` | `r` | Copy `cpane`'s profiles into `cpanext` for rc testing |
 
@@ -85,6 +86,41 @@ eval "$(cpane shell-init bash)"   # or: zsh
 # $PROFILE
 cpane shell-init pwsh | Out-String | Invoke-Expression
 ```
+
+### Editor autocomplete/validation (`schema`)
+
+`cpane schema` writes the profile JSON Schema to
+`~/.config/cpane/profile.schema.json` (always regenerated from the exact
+build that's running, so it never drifts from your installed version).
+Point VS Code's JSON/YAML language servers at it via **user** settings
+(profiles live in your home config dir, not a workspace), substituting the
+path `cpane schema` printed:
+
+```jsonc
+// settings.json (User)
+"yaml.schemas": {
+  "/home/you/.config/cpane/profile.schema.json": [
+    "/home/you/.config/cpane/profiles/*.yaml",
+    "/home/you/.config/cpane/profiles/*.yml"
+  ]
+},
+"json.schemas": [
+  {
+    "url": "/home/you/.config/cpane/profile.schema.json",
+    "fileMatch": [
+      "/home/you/.config/cpane/profiles/*.json",
+      "/home/you/.config/cpane/profiles/*.jsonc"
+    ]
+  }
+]
+```
+
+Do the same for `cpanext` if you use the rc channel. TOML profiles need the
+[Even Better TOML](https://marketplace.visualstudio.com/items?itemName=tamasfe.even-better-toml)
+extension's `evenBetterToml.schema.associations` setting instead. The
+schema only covers structure (field names/types/enums) — the
+command/panes-are-mutually-exclusive and unique-window-name rules are still
+enforced by `cpane` itself, not something JSON Schema can express.
 
 **Attach semantics:** if the session already exists remotely, cPane attaches
 as-is and never destructively modifies it. It diffs the live session against
