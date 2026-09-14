@@ -18,6 +18,7 @@ import type { Profile } from '../src/core/profile-schema.ts';
 
 const PROFILE: Profile = {
     host: 'app-vm',
+    vscode: { directory: '~/app' },
     windows: [
         { name: 'app', cwd: '~/app', command: 'npm run dev' },
         {

@@ -32,4 +32,11 @@ describe('buildProfileJsonSchema', () => {
         ]);
         expect(paneSchema.additionalProperties).toBe(false);
     });
+
+    it('describes the optional VS Code launch stanza', () => {
+        const schema = buildProfileJsonSchema() as any;
+        expect(schema.required).not.toContain('vscode');
+        expect(schema.properties.vscode.required).toEqual(['directory']);
+        expect(schema.properties.vscode.additionalProperties).toBe(false);
+    });
 });

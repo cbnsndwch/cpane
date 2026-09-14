@@ -4,6 +4,7 @@ import { parseProfile } from '../src/core/profile-schema.ts';
 
 const VALID_PROFILE = {
     host: 'app-vm',
+    vscode: { directory: '~/app' },
     windows: [
         { name: 'app', cwd: '~/app', command: 'npm run dev' },
         {
@@ -27,6 +28,7 @@ describe('parseProfile', () => {
     it('accepts the PRD reference profile', () => {
         const profile = parseProfile(VALID_PROFILE);
         expect(profile.host).toBe('app-vm');
+        expect(profile.vscode?.directory).toBe('~/app');
         expect(profile.windows).toHaveLength(3);
         expect(profile.windows[1]?.panes).toHaveLength(2);
     });
@@ -72,6 +74,24 @@ describe('parseProfile', () => {
 
     it('rejects an empty windows array', () => {
         expect(() => parseProfile({ host: 'app-vm', windows: [] })).toThrow();
+    });
+
+    it('rejects an empty VS Code directory', () => {
+        expect(() =>
+            parseProfile({
+                ...VALID_PROFILE,
+                vscode: { directory: '' },
+            }),
+        ).toThrow();
+    });
+
+    it('rejects unknown VS Code fields', () => {
+        expect(() =>
+            parseProfile({
+                ...VALID_PROFILE,
+                vscode: { directory: '~/app', executable: 'code-insiders' },
+            }),
+        ).toThrow();
     });
 
     it('rejects unknown top-level fields', () => {

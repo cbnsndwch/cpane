@@ -412,4 +412,30 @@ describe('captureProfileFromLive', () => {
         const profile = captureProfileFromLive('h', liveWindows, '/home/serge');
         expect(profile.windows[0]).toEqual({ name: 'w', cwd: '/var/log' });
     });
+
+    it('preserves VS Code configuration supplied by sync', () => {
+        const profile = captureProfileFromLive(
+            'app-vm',
+            [
+                {
+                    index: 0,
+                    name: 'main',
+                    panes: [
+                        {
+                            index: 0,
+                            cwd: '/home/serge/app',
+                            left: 0,
+                            top: 0,
+                            width: 80,
+                            height: 24,
+                        },
+                    ],
+                },
+            ],
+            '/home/serge',
+            { directory: '~/app' },
+        );
+
+        expect(profile.vscode).toEqual({ directory: '~/app' });
+    });
 });
