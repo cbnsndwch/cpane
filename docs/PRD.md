@@ -81,6 +81,8 @@ profile file, it defaults to **YAML**.
 ```yaml
 # app.yaml
 host: app-vm          # must match a `Host` alias in ~/.ssh/config
+vscode:               # optional; launch local VS Code via Remote - SSH
+  directory: ~/app    # directory to open on the remote host
 windows:
   - name: app
     cwd: ~/app
@@ -102,6 +104,8 @@ Field reference:
 | Field | Level | Required | Notes |
 | --- | --- | --- | --- |
 | `host` | profile | yes | Reference to a `Host` alias in `~/.ssh/config`. Never a hostname/user/port directly. |
+| `vscode` | profile | no | When present, launch the calling computer's `code` client and connect it through Remote - SSH. |
+| `vscode.directory` | `vscode` | yes | Remote directory to open. Accepts an absolute path, `~`, or a `~/...` path. |
 | `windows[].name` | window | yes | Becomes the tmux window/tab name. |
 | `windows[].cwd` | window | no | Working directory for the window (or its first/only pane). |
 | `windows[].command` | window | no | Startup command for a single-pane window. Mutually exclusive with `panes`. |
@@ -118,6 +122,9 @@ Field reference:
   verb).
 - Bare `cpane` (no args) — opens an OpenTUI fuzzy-search picker over all
   profiles; enter connects to the selected one.
+- If the profile has a `vscode` stanza, launch the local `code` client with
+  the profile's SSH alias and remote directory before attaching the terminal.
+  Failure to start the local client is reported and aborts the attach.
 - **Attach semantics:** if the session already exists remotely, cPane
   attaches as-is and **never destructively modifies it**. It non-destructively
   diffs the live session's windows/panes against the profile's declared

@@ -32,6 +32,8 @@ writes YAML).
 ```yaml
 # ~/.config/cpane/profiles/app.yaml
 host: app-vm # a Host alias in ~/.ssh/config — never a hostname/user/port directly
+vscode: # optional: launch local VS Code and connect via Remote - SSH
+  directory: ~/app # directory on app-vm to open
 windows:
   - name: app
     cwd: ~/app
@@ -53,6 +55,13 @@ A window is either `command` (single pane) or `panes` (a split layout) —
 never both. Every pane must declare `split`, even the first one in a window
 (there's nothing before it to split from, but the field is part of the
 schema either way).
+
+When the optional `vscode` stanza is present, `cpane <profile>` also runs
+`code --remote ssh-remote+<host> <directory>` on the calling computer. The
+local VS Code installation must expose `code` on `PATH` and have the
+Remote - SSH extension installed. `directory` is a path on the remote host;
+absolute paths and `~`/`~/...` are supported. If VS Code cannot be started,
+cPane reports the error and does not attach the terminal session.
 
 ## Commands
 
