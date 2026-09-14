@@ -1,5 +1,11 @@
 # @cpane/cli
 
+## 0.4.0
+
+### Minor Changes
+
+- d7f9538: Add an optional profile stanza that launches local VS Code connected to the profile host and remote directory through Remote - SSH.
+
 ## 0.3.0
 
 ### Minor Changes
