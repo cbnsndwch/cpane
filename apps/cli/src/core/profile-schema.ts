@@ -25,9 +25,16 @@ export const windowSchema = z
         },
     );
 
+export const vscodeSchema = z
+    .object({
+        directory: z.string().min(1),
+    })
+    .strict();
+
 export const profileSchema = z
     .object({
         host: z.string().min(1),
+        vscode: vscodeSchema.optional(),
         windows: z.array(windowSchema).min(1),
     })
     .strict()
@@ -43,6 +50,7 @@ export const profileSchema = z
 
 export type Pane = z.infer<typeof paneSchema>;
 export type Window = z.infer<typeof windowSchema>;
+export type Vscode = z.infer<typeof vscodeSchema>;
 export type Profile = z.infer<typeof profileSchema>;
 
 export function parseProfile(data: unknown): Profile {

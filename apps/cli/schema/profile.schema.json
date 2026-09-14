@@ -9,6 +9,17 @@
             "type": "string",
             "minLength": 1
         },
+        "vscode": {
+            "type": "object",
+            "properties": {
+                "directory": {
+                    "type": "string",
+                    "minLength": 1
+                }
+            },
+            "required": ["directory"],
+            "additionalProperties": false
+        },
         "windows": {
             "minItems": 1,
             "type": "array",

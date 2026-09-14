@@ -47,6 +47,7 @@ export async function runSync(
         profile.host,
         live.windows,
         live.home,
+        profile.vscode,
     );
     await writeProfileFile(filePath, captured);
 

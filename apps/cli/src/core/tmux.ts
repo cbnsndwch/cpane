@@ -2,6 +2,7 @@ import {
     parseProfile,
     type Pane,
     type Profile,
+    type Vscode,
     type Window,
 } from './profile-schema.ts';
 
@@ -341,6 +342,7 @@ export function captureProfileFromLive(
     host: string,
     liveWindows: LiveWindow[],
     home: string,
+    vscode?: Vscode,
 ): Profile {
     const windows: Window[] = liveWindows.map(liveWindow => {
         if (liveWindow.panes.length <= 1) {
@@ -371,5 +373,9 @@ export function captureProfileFromLive(
         return { name: liveWindow.name, panes };
     });
 
-    return parseProfile({ host, windows });
+    return parseProfile({
+        host,
+        ...(vscode ? { vscode } : {}),
+        windows,
+    });
 }

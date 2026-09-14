@@ -16,6 +16,7 @@ import {
     joinRemoteScript,
     parseInspectOutput,
 } from '../core/tmux.ts';
+import { launchVscodeRemote, resolveVscodeDirectory } from '../core/vscode.ts';
 
 export async function runConnect(
     context: CpaneContext,
@@ -53,6 +54,21 @@ export async function runConnect(
         return 1;
     }
     const live = parseInspectOutput(inspect.stdout, inspect.exitCode);
+
+    if (profile.vscode) {
+        const directory = resolveVscodeDirectory(
+            profile.vscode.directory,
+            live.home,
+        );
+        try {
+            await launchVscodeRemote(profile.host, directory);
+        } catch (error) {
+            const detail =
+                error instanceof Error ? error.message : String(error);
+            console.error(`Could not launch local VS Code: ${detail}`);
+            return 1;
+        }
+    }
 
     let script: string;
     if (!live.exists) {
